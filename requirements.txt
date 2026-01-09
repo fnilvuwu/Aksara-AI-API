@@ -1,0 +1,38 @@
+# ---------------------------
+# FastAPI + Server
+# ---------------------------
+fastapi
+uvicorn[standard]
+python-multipart
+
+# ---------------------------
+# Environment Variables
+# ---------------------------
+python-dotenv
+
+# ---------------------------
+# Google Gemini API
+# ---------------------------
+google-generativeai
+
+# ---------------------------
+# Data Models
+# ---------------------------
+pydantic
+
+# ---------------------------
+# Image Processing
+# ---------------------------
+pillow
+opencv-python
+
+# ---------------------------
+# PDF Processing
+# ---------------------------
+pypdfium2
+
+# ---------------------------
+# OCR Model (PaddleOCR)
+# ---------------------------
+paddlepaddle
+paddleocr
