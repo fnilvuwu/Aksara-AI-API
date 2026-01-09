@@ -19,8 +19,10 @@ os.makedirs(PDF_DIR, exist_ok=True)
 # ===========================================
 # Initialize processor
 # ===========================================
-processor = ProcessorAksaraLontara()
-
+processor = ProcessorAksaraLontara(
+    ocr_model_path=r"dir_ocr_models\PP-OCRv5_server_rec_infer\buginese_ocr_model.onnx",
+    ocr_dict_path=r"dir_ocr_models\PP-OCRv5_server_rec_infer\lontara_chr.txt"
+)
 # ===========================================
 # Main API
 # ===========================================
@@ -132,4 +134,4 @@ def home():
 # Run App
 # ===========================================
 if __name__ == "__main__":
-    uvicorn.run("api:app", port=8080, reload=True)
+    uvicorn.run("app:app", port=8080, reload=True)

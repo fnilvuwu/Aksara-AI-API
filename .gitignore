@@ -1,7 +1,6 @@
 .env
 venv/
 
-dir_ocr_models/
 dir_images/
 dir_pdf/
 

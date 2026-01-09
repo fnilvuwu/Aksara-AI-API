@@ -32,7 +32,7 @@ opencv-python
 pypdfium2
 
 # ---------------------------
-# OCR Model (PaddleOCR)
+# OCR Model
 # ---------------------------
-paddlepaddle
-paddleocr
+onnxruntime 
+numpy
