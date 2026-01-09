@@ -20,8 +20,8 @@ os.makedirs(PDF_DIR, exist_ok=True)
 # Initialize processor
 # ===========================================
 processor = ProcessorAksaraLontara(
-    ocr_model_path=r"dir_ocr_models\PP-OCRv5_server_rec_infer\buginese_ocr_model.onnx",
-    ocr_dict_path=r"dir_ocr_models\PP-OCRv5_server_rec_infer\lontara_chr.txt"
+    ocr_model_path="dir_ocr_models/PP-OCRv5_server_rec_infer/buginese_ocr_model.onnx",
+    ocr_dict_path="dir_ocr_models/PP-OCRv5_server_rec_infer/lontara_chr.txt"
 )
 # ===========================================
 # Main API
