@@ -172,3 +172,34 @@ Output JSON format:
   "indonesia": "<hasil_terjemahan_bahasa_indonesia>"
 }
 """
+
+    @staticmethod
+    def prompt_latin_text_processing(text: str) -> str:
+        return f"""
+You are an expert linguist translator for Buginese (Bahasa Bugis) and Indonesian.
+
+Your Task:
+1. Analyze the input text "{text}".
+2. Detect if the text is in "Bahasa Indonesia" or "Bahasa Bugis" (written in Latin).
+3. If "Bahasa Indonesia":
+   - Translate it into naturally spoken "Bahasa Bugis" (Latin script).
+   - Ensure the Bugis translation uses standard romanization (e.g., 'ng', 'ny', 'ae', 'ao').
+   - Use 'doe' for money (instead of 'doi').
+4. If "Bahasa Bugis" (Latin):
+   - Correct any non-standard spelling to standard Bugis romanization.
+   - Keep the meaning as is.
+5. Provide the "Bahasa Indonesia" translation (if input was Bugis, translate it; if input was Indonesia, keep it).
+
+Output Rules:
+- Return ONLY VALID JSON.
+- No markdown, no explanations.
+
+Output JSON Format:
+{{
+  "latin": "<hasil_terjemahan_atau_koreksi_ke_bahasa_bugis_latin>",
+  "indonesia": "<teks_bahasa_indonesia_yang_sesuai>"
+}}
+
+Input Text:
+{text}
+"""

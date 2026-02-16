@@ -8,6 +8,7 @@ import pypdfium2 as pdfium
 import google.generativeai as genai
 
 from prompts.PromptAksaraLontara import PromptAksaraLontara
+from prompts.LontaraEngine import LontaraEngine
 from ocr.OcrAksaraLontara import OcrAksaraLontara
 
 # Load environment variables
@@ -94,7 +95,32 @@ class ProcessorAksaraLontara:
     # ------------------------------------------------------------
     # TEXT
     # ------------------------------------------------------------
+    @staticmethod
+    def _is_latin(text: str) -> bool:
+        """Check if text contains primarily Latin characters."""
+        latin_count = sum(1 for char in text if 'a' <= char.lower() <= 'z')
+        return latin_count > (len(text) * 0.5)
+
     def generate_translation_from_text(self, text: str, model: str = None) -> dict:
+        if self._is_latin(text):
+            # 1. Ask LLM to translate/correct to Bugis Latin
+            if model:
+                self.model = genai.GenerativeModel(model)
+
+            prompt = PromptAksaraLontara.prompt_latin_text_processing(text)
+            llm_result = self._call_model_json(prompt)
+
+            # 2. Convert Bugis Latin to Aksara using Engine
+            latin_text = llm_result.get("latin", "")
+            aksara_lontara = LontaraEngine.latin_to_lontara(latin_text)
+
+            return {
+                "aksara": aksara_lontara,
+                "latin": latin_text,
+                "indonesia": llm_result.get("indonesia", "")
+            }
+        
+        # Fallback to original flow (Lontara input)
         return self._translate_text(text, model)
 
     # ------------------------------------------------------------
