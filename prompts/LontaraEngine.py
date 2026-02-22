@@ -47,28 +47,40 @@ class LontaraEngine:
 
     @classmethod
     def lontara_to_latin(cls, text: str) -> str:
-        result = ""
-        skip = False
+        result = []
+        i = 0
+        last_was_consonant = False
 
-        for i, char in enumerate(text):
-            if skip:
-                skip = False
+        while i < len(text):
+            # Handle digraphs first
+            if text[i:i+2] in LATIN_TO_LONTARA_BASE:
+                base = LATIN_TO_LONTARA_BASE[text[i:i+2]]
+                result.append(base)
+                last_was_consonant = True
+                i += 2
                 continue
 
-            if char in cls.LONTARA_TO_LATIN:
-                base = cls.LONTARA_TO_LATIN[char]
+            char = text[i]
 
-                # check diacritic
-                if i + 1 < len(text) and text[i + 1] in cls.DIACRITICS:
-                    vowel = cls.DIACRITICS[text[i + 1]]
-                    result += base[:-1] + vowel
-                    skip = True
+            # Consonant
+            if char in LATIN_TO_LONTARA_BASE and char not in VOWEL_MARK:
+                result.append(LATIN_TO_LONTARA_BASE[char])
+                last_was_consonant = True
+
+            # Vowel
+            elif char in VOWEL_MARK:
+                if last_was_consonant:
+                    result.append(VOWEL_MARK[char])
                 else:
-                    result += base
-            else:
-                result += char
+                    # vowel without consonant → use ᨕ
+                    result.append("ᨕ")
+                    if char != "a":
+                        result.append(VOWEL_MARK[char])
+                last_was_consonant = False
 
-        return result.strip()
+            i += 1
+
+        return "".join(result)
 
     # =========================
     # SIMPLE BUGIS RECONSTRUCTION
