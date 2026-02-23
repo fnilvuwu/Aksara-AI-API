@@ -25,7 +25,7 @@ class ProcessorAksaraLontara:
 
     def __init__(
         self,
-        model_name: str = "gemini-2.5-flash",
+        model_name: str = "gemma-3-27b-it",
         ocr_model_path: str = "models/buginese_rec.onnx",
         ocr_dict_path: str = "models/dict.txt",
     ):
@@ -37,6 +37,12 @@ class ProcessorAksaraLontara:
             onnx_model_path=ocr_model_path,
             dict_path=ocr_dict_path
         )
+
+        # List available models
+        print("\nAvailable models that support generateContent:\n")
+        for model in genai.list_models():
+            if 'generateContent' in model.supported_generation_methods:
+                print(f"- {model.name}")
 
     # ------------------------------------------------------------
     # Utils
