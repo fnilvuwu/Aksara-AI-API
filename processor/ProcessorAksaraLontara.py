@@ -25,7 +25,7 @@ class ProcessorAksaraLontara:
 
     def __init__(
         self,
-        model_name: str = "gemini-3.1-flash-lite",
+        model_name: str = "gemini-3.1-flash-lite-preview",
         ocr_model_path: str = "models/buginese_rec.onnx",
         ocr_dict_path: str = "models/dict.txt",
     ):
